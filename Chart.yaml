@@ -1,0 +1,16 @@
+apiVersion: v2
+name: lampac
+description: A Helm chart for Lampac - torrent streaming service
+type: application
+version: 0.1.0
+appVersion: "1.0.0"
+home: https://github.com/immisterio/Lampac
+sources:
+  - https://github.com/immisterio/Lampac
+maintainers:
+  - name: VizzleTF
+    email: vizzlef@gmail.com
+keywords:
+  - streaming
+  - media
+  - entertainment
