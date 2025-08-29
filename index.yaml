@@ -2,6 +2,26 @@ apiVersion: v1
 entries:
   lampac:
   - apiVersion: v2
+    appVersion: 28.07.2025
+    created: "2025-08-29T08:36:31.586270153Z"
+    description: A Helm chart for Lampac - torrent streaming service
+    digest: e009cff62bafe1cb45cc604668a871c194cc8b19a6cdf10f4c8c81c27e8b3305
+    home: https://github.com/immisterio/Lampac
+    keywords:
+    - streaming
+    - media
+    - entertainment
+    maintainers:
+    - email: vizzlef@gmail.com
+      name: VizzleTF
+    name: lampac
+    sources:
+    - https://github.com/immisterio/Lampac
+    type: application
+    urls:
+    - https://github.com/VizzleTF/lampac_helm/releases/download/lampac-0.1.3/lampac-0.1.3.tgz
+    version: 0.1.3
+  - apiVersion: v2
     appVersion: 1.0.0
     created: "2025-08-29T08:23:40.019937425Z"
     description: A Helm chart for Lampac - torrent streaming service
@@ -41,4 +61,4 @@ entries:
     urls:
     - https://github.com/VizzleTF/lampac_helm/releases/download/lampac-0.1.1/lampac-0.1.1.tgz
     version: 0.1.1
-generated: "2025-08-29T08:23:40.019947875Z"
+generated: "2025-08-29T08:36:31.586281895Z"
