@@ -1,0 +1,29 @@
+# Common VCS dirs
+.git/
+.gitignore
+.bzr/
+.bzrignore
+.hg/
+.hgignore
+.svn/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE/editor
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Archives
+*.tgz
+*.zip
+*.tar
+*.tar.gz
+
+# Node/Package managers
+node_modules/
+package-lock.json
+yarn.lock
