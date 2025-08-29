@@ -16,7 +16,7 @@ Source: https://github.com/immisterio/Lampac
 # From this repository root
 helm upgrade --install lampac ./charts/lampac \
   --namespace lampac --create-namespace \
-  -f values.yaml
+  -f ./charts/lampac/values.yaml
 ```
 
 ## Uninstall
