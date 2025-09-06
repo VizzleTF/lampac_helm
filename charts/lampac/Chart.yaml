@@ -2,7 +2,7 @@ apiVersion: v2
 name: lampac
 description: A Helm chart for Lampac - torrent streaming service
 type: application
-version: 0.1.8
+version: 0.1.9
 appVersion: "28.07.2025"
 home: https://github.com/immisterio/Lampac
 sources:
