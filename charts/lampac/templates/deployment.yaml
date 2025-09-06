@@ -13,10 +13,16 @@ spec:
       {{- include "lampac.selectorLabels" . | nindent 6 }}
   template:
     metadata:
-      {{- with .Values.podAnnotations }}
       annotations:
+        {{- if .Values.configMaps.initConf.enabled }}
+        checksum/init-conf: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+        {{- end }}
+        {{- if .Values.configMaps.manifest.enabled }}
+        checksum/manifest: {{ .Values.configMaps.manifest.data | toYaml | sha256sum }}
+        {{- end }}
+        {{- with .Values.podAnnotations }}
         {{- toYaml . | nindent 8 }}
-      {{- end }}
+        {{- end }}
       labels:
         {{- include "lampac.selectorLabels" . | nindent 8 }}
     spec:
