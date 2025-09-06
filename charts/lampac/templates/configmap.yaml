@@ -1,0 +1,58 @@
+{{- if .Values.configMaps.initConf.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "lampac.fullname" . }}-init-conf
+  labels:
+    {{- include "lampac.labels" . | nindent 4 }}
+data:
+  init.conf: |
+    {{ .Values.configMaps.initConf.data }}
+---
+{{- end }}
+{{- if .Values.configMaps.manifest.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "lampac.fullname" . }}-manifest
+  labels:
+    {{- include "lampac.labels" . | nindent 4 }}
+data:
+  manifest.json: |
+    [
+    {{- $first := true }}
+    {{- range $key, $value := .Values.configMaps.manifest.data }}
+    {{- if not $first }},{{ end }}
+      {
+        "enable": {{ $value.enable }},
+        "dll": {{ $value.dll | quote }}
+        {{- if $value.initspace }},
+        "initspace": {{ $value.initspace | quote }}
+        {{- end }}
+        {{- if $value.middlewares }},
+        "middlewares": {{ $value.middlewares | quote }}
+        {{- end }}
+        {{- if $value.online }},
+        "online": {{ $value.online | quote }}
+        {{- end }}
+        {{- if $value.sisi }},
+        "sisi": {{ $value.sisi | quote }}
+        {{- end }}
+        {{- if $value.jac }},
+        "jac": [
+        {{- $jacFirst := true }}
+        {{- range $value.jac }}
+        {{- if not $jacFirst }},{{ end }}
+          {
+            "enable": {{ .enable }},
+            "namespace": {{ .namespace | quote }}
+          }
+        {{- $jacFirst = false }}
+        {{- end }}
+        ]
+        {{- end }}
+      }
+    {{- $first = false }}
+    {{- end }}
+    ]
+{{- end }}

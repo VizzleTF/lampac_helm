@@ -123,3 +123,57 @@ volumeMounts: []
 
 # Additional volumes
 volumes: []
+
+# ConfigMaps configuration
+configMaps:
+  # Init configuration file
+  initConf:
+    enabled: true
+    data: |
+      '{"chromium":{"executablePath":"/usr/bin/chromium"}}'
+  
+  # Manifest configuration file
+  manifest:
+    enabled: true
+    data:
+      SISI:
+        enable: true
+        dll: "SISI.dll"
+      Online:
+        enable: true
+        dll: "Online.dll"
+      JacRed:
+        enable: true
+        initspace: "Jackett.ModInit"
+        dll: "JacRed.dll"
+      DLNA:
+        enable: true
+        dll: "DLNA.dll"
+      Tracks:
+        enable: true
+        initspace: "Tracks.ModInit"
+        dll: "Tracks.dll"
+      TorrServer:
+        enable: true
+        initspace: "TorrServer.ModInit"
+        dll: "TorrServer.dll"
+      Merchant:
+        enable: false
+        dll: "Merchant.dll"
+      Lamson:
+        enable: false
+        dll: "Lamson.dll"
+        initspace: "Lamson.ModInit"
+        middlewares: "Lamson.Middlewares"
+        online: "Lamson.OnlineApi"
+        sisi: "Lamson.SisiApi"
+        jac:
+          - enable: true
+            namespace: "Lamson.Latracker"
+          - enable: false
+            namespace: "Lamson.BigTracker"
+      Kinogram:
+        enable: false
+        dll: "Kinogram"
+        initspace: "Lamson.ModInit"
+        online: "Lamson.OnlineApi"
