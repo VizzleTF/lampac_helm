@@ -130,7 +130,7 @@ configMaps:
   initConf:
     enabled: true
     data: |
-      '{"chromium":{"executablePath":"/usr/bin/chromium"}}'
+      {"chromium":{"executablePath":"/usr/bin/chromium"}}
   
   # Manifest configuration file
   manifest:
