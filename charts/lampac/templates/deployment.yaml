@@ -65,11 +65,23 @@ spec:
             periodSeconds: 5
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-          {{- if or .Values.volumeMounts .Values.persistence.enabled }}
+          {{- if or .Values.volumeMounts .Values.persistence.enabled .Values.configMaps.initConf.enabled .Values.configMaps.manifest.enabled }}
           volumeMounts:
             {{- if .Values.persistence.enabled }}
             - name: data
               mountPath: {{ .Values.persistence.mountPath }}
+            {{- end }}
+            {{- if .Values.configMaps.initConf.enabled }}
+            - name: init-conf
+              mountPath: /home/init.conf
+              subPath: init.conf
+              readOnly: true
+            {{- end }}
+            {{- if .Values.configMaps.manifest.enabled }}
+            - name: manifest
+              mountPath: /home/module/manifest.json
+              subPath: manifest.json
+              readOnly: true
             {{- end }}
             {{- with .Values.volumeMounts }}
             {{- toYaml . | nindent 12 }}
@@ -79,12 +91,22 @@ spec:
           env:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-      {{- if or .Values.volumes .Values.persistence.enabled }}
+      {{- if or .Values.volumes .Values.persistence.enabled .Values.configMaps.initConf.enabled .Values.configMaps.manifest.enabled }}
       volumes:
         {{- if .Values.persistence.enabled }}
         - name: data
           persistentVolumeClaim:
             claimName: {{ include "lampac.fullname" . }}-data
+        {{- end }}
+        {{- if .Values.configMaps.initConf.enabled }}
+        - name: init-conf
+          configMap:
+            name: {{ include "lampac.fullname" . }}-init-conf
+        {{- end }}
+        {{- if .Values.configMaps.manifest.enabled }}
+        - name: manifest
+          configMap:
+            name: {{ include "lampac.fullname" . }}-manifest
         {{- end }}
         {{- with .Values.volumes }}
         {{- toYaml . | nindent 8 }}
