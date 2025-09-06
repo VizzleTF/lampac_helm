@@ -24,11 +24,9 @@ data:
     {{- range $key, $value := .Values.configMaps.manifest.data }}
     {{- if not $first }},{{ end }}
       {
-        "enable": {{ $value.enable }},
-        "dll": {{ $value.dll | quote }}
-        {{- if $value.initspace }},
-        "initspace": {{ $value.initspace | quote }}
-        {{- end }}
+        "enable": {{ $value.enable | default false }},
+        "dll": {{ $value.dll | default (printf "%s.dll" $key) | quote }}{{- $defaultInitspace := "" }}{{- if eq $key "JacRed" }}{{- $defaultInitspace = "Jackett.ModInit" }}{{- else if eq $key "Tracks" }}{{- $defaultInitspace = "Tracks.ModInit" }}{{- else if eq $key "TorrServer" }}{{- $defaultInitspace = "TorrServer.ModInit" }}{{- else if eq $key "Lamson" }}{{- $defaultInitspace = "Lamson.ModInit" }}{{- else if eq $key "Kinogram" }}{{- $defaultInitspace = "Lamson.ModInit" }}{{- end }}{{- if or $value.initspace $defaultInitspace }},
+        "initspace": {{ $value.initspace | default $defaultInitspace | quote }}{{- end }}
         {{- if $value.middlewares }},
         "middlewares": {{ $value.middlewares | quote }}
         {{- end }}
@@ -44,7 +42,7 @@ data:
         {{- range $value.jac }}
         {{- if not $jacFirst }},{{ end }}
           {
-            "enable": {{ .enable }},
+            "enable": {{ .enable | default false }},
             "namespace": {{ .namespace | quote }}
           }
         {{- $jacFirst = false }}
