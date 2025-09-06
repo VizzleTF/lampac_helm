@@ -1,0 +1,70 @@
+# Example values for lampac.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# Lampac - Media server with online sources, torrents and DLNA support
+# Source: https://github.com/immisterio/Lampac
+# Chart: local lampac chart
+
+replicaCount: 1
+
+image:
+  repository: immisterio/lampac
+  pullPolicy: Always
+  tag: "latest"
+
+serviceAccount:
+  create: true
+
+service:
+  type: LoadBalancer
+  port: 9118
+
+ingress:
+  enabled: false
+
+resources:
+  requests:
+    memory: "1Gi"
+    cpu: "100m"
+  limits:
+    memory: "2Gi"
+    cpu: "1000m"
+
+# Environment variables
+env:
+  - name: LAMPAC_PORT
+    value: "9118"
+
+# ConfigMaps configuration
+configMaps:
+  # Init configuration file
+  initConf:
+    enabled: true
+    data: |
+      {
+        "chromium": {
+          "executablePath": "/usr/bin/chromium"
+        },
+        "Rezka": {
+          "host": "https://example.fi",
+          "login": "example@example.com",
+          "passwd": "example"
+        }
+      }
+  
+  # Manifest configuration file
+  manifest:
+    enabled: true
+    data:
+      DLNA:
+        enable: false
+      # Other modules will use default values from values.yaml
+      # You can override any module configuration here
+      # Example:
+      # JacRed:
+      #   enable: true
+      #   dll: "JacRed.dll"
+      #   initspace: "Jackett.ModInit"
+      # TorrServer:
+      #   enable: false
