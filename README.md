@@ -1,5 +1,7 @@
 # Lampac Helm Chart
 
+> **Archived 2026-10.** Lampac in the author's homelab now runs as plain workloads (homelab-common); this chart targets the old `immisterio/lampac` image and is unmaintained.
+
 Purpose: Deploy Lampac (torrent streaming service) with Kubernetes best practices.
 Source: https://github.com/immisterio/Lampac
 
